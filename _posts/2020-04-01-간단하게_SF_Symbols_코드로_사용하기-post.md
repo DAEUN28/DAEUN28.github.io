@@ -21,15 +21,15 @@ SF Symbols는 **iOS 13, watchOS 6, tvOS 13**부터 앱에서 사용 할 수 있�
 
 이제 UIImage의 이니셜라이저 중 아래의 이니셜라이저의 systemName인자에 붙여넣기 하시면 됩니다!
 
-{% gist c08ee0f2726fd0e3909d %}
+<script src="https://gist.github.com/DAEUN28/be8cfdac4afa3eeb0ab6885af5e63b4f.js"></script>
 
 
 
 아래 예제와 같이 사용해주시면 됩니다😇
 
-```Swift
-let image = UIImage(systemName: "cloud.fill")
-```
+<script src="https://gist.github.com/DAEUN28/395da96f896d074ede8751e12e83036c.js"></script>
+
+
 
 SymbolConfiguration을 생성해 configuration에 넣어주시면 pointSize, weight, scale등을 커스텀하실 수 있어요.
 
@@ -37,23 +37,7 @@ SymbolConfiguration을 생성해 configuration에 넣어주시면 pointSize, wei
 
 만약 SF Symbols를 자주 이용한다!!라면 아래와 같이 사용하시면 편하겠죠???
 
-```Swift
-enum SFSymbolKey: String {
-  case house
-  case magnifyingglass
-  case ellipsis
-  case noContentCloud = "icloud.slash.fill"
-  case calendar
-  case pencil = "pencil.and.outline"
-  case cloud = "cloud.fill"
-}
-
-extension UIImage {
-  convenience init?(_ sfSymbolKey: SFSymbolKey) {
-    self.init(systemName: sfSymbolKey.rawValue)
-  }
-}
-```
+<script src="https://gist.github.com/DAEUN28/7e0ba99a3a4e873cd2a52097b594d26e.js"></script>
 
 
 
