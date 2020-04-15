@@ -1,5 +1,5 @@
 ---
-title: "885 duplicate symbols for architecture armv7"
+title: "[에러] 885 duplicate symbols for architecture armv7"
 date: 2020-02-17
 toc: true
 toc_sticky: true
