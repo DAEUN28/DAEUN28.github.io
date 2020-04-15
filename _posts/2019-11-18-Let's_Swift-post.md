@@ -1,6 +1,9 @@
 ---
 title: "Let's Swift 2019"
 date: 2019-11-19
+toc: true
+toc_sticky: true
+toc_label: "목차"
 tags:
   - Let's_Swift
 categories: "행사"

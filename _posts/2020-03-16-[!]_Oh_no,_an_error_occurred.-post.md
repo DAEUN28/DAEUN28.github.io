@@ -1,10 +1,12 @@
 ---
-title: "[!] Oh no, an error occurred."
-date: 2020-03-16
+title: "[에러] [!] Oh no, an error occurred."
+toc: true
+toc_sticky: true
+toc_label: "목차"
 tags:
   - Cocoapods
   - 터미널
-categories: "에러사전"
+categories: "에러일기"
 ---
 
 ### 에러

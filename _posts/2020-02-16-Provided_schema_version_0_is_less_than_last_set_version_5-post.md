@@ -1,10 +1,13 @@
 ---
-title: "Provided schema version 0 is less than last set version 5."
+title: "[에러] Provided schema version 0 is less than last set version 5."
 date: 2020-02-16
+toc: true
+toc_sticky: true
+toc_label: "목차"
 tags:
   - Swift
   - iOS
-categories: "에러사전"
+categories: "에러일기"
 ---
 
 안녕하세요😃 또 오랜만이네요,,, 그동안 너무 바빠서 글을 못쓰고 있었습니다,,ㅠㅠㅜㅠ 그래도 그동안 진행한 프로젝트에서 배운게 많아서 더 좋은 글들을 쓸 수 있을 것 같아요! 프로젝트를 진행하면서 여러 에러들을 만났어요. 덕분에 해결방법을 찾느라 삽질을 조금 했네요,,, 그래서 앞으로 에러를 만날때마다 기록해두고 시간날때 포스팅을 하려고 합니다☺️ 대부분의 개발자들이 IDE에서 주는 에러메시지로 구글링을 많이 하니까 제목은 항상 에러메시지로 하려고해요! 도움이 되셨으면 좋겠어요🙏

@@ -1,10 +1,13 @@
 ---
-title: "Invalid `RealmSwift.podspec` file: Malformed version number string WARNING"
+title: "[에러] Invalid `RealmSwift.podspec` file: Malformed version number string WARNING"
 date: 2020-02-17
+toc: true
+toc_sticky: true
+toc_label: "목차"
 tags:
   - Cocoapods
   - 터미널
-categories: "에러사전"
+categories: "에러일기"
 ---
 
 

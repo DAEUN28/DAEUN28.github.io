@@ -1,10 +1,13 @@
 ---
 title: "885 duplicate symbols for architecture armv7"
 date: 2020-02-17
+toc: true
+toc_sticky: true
+toc_label: "목차"
 tags:
   - Swift
   - iOS
-categories: "에러사전"
+categories: "에러일기"
 ---
 
 

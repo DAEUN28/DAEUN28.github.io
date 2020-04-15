@@ -1,9 +1,12 @@
 ---
 title: "mac에서 mysql 포트 변경하기"
+toc: true
+toc_sticky: true
+toc_label: "목차"
 tags:
   - 터미널
   - mysql
-categories: "삽질사전"
+categories: "삽질일기"
 ---
 
 

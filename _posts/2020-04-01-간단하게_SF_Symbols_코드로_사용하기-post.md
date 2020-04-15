@@ -1,6 +1,5 @@
 ---
 title: "간단하게 SF Symbols 코드로 사용하기"
-date: 2020-04-01
 tags:
   - iOS
   - Swift

@@ -1,6 +1,9 @@
 ---
 title: "let us- GO! 2019 summer"
 date: 2019-11-18
+toc: true
+toc_sticky: true
+toc_label: "목차"
 tags:
   - let_us_GO!
 categories: "행사"
