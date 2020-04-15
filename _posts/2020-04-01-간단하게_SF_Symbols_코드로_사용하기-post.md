@@ -4,7 +4,7 @@ date: 2020-04-01
 tags:
   - iOS
   - Swift
-categories: "간단한 기록"
+categories: "iOS사용법"
 ---
 
 안녕하세요 😀
@@ -21,15 +21,7 @@ SF Symbols는 **iOS 13, watchOS 6, tvOS 13**부터 앱에서 사용 할 수 있�
 
 이제 UIImage의 이니셜라이저 중 아래의 이니셜라이저의 systemName인자에 붙여넣기 하시면 됩니다!
 
-```Swift
-init?(systemName name: String)
-
-init?(systemName name: String, 
-      compatibleWith traitCollection: UITraitCollection?)
-
-init?(systemName name: String, 
-			withConfiguration configuration: UIImage.Configuration?)
-```
+{% gist c08ee0f2726fd0e3909d %}
 
 
 
