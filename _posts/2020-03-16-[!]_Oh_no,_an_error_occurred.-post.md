@@ -1,0 +1,201 @@
+---
+title: "[!] Oh no, an error occurred."
+date: 2020-03-16
+tags:
+  - Cocoapods
+  - 터미널
+categories: "에러사전"
+---
+
+### 에러
+
+터미널 에러
+
+```
+――― MARKDOWN TEMPLATE ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+
+### Command
+
+​```
+/usr/local/bin/pod install
+​```
+
+### Report
+
+* What did you do?
+
+* What did you expect to happen?
+
+* What happened instead?
+
+
+### Stack
+
+​```
+   CocoaPods : 1.9.1
+        Ruby : ruby 2.6.3p62 (2019-04-16 revision 67580) [universal.x86_64-darwin19]
+    RubyGems : 3.0.3
+        Host : Mac OS X 10.15.3 (19D76)
+       Xcode : 11.3.1 (11C504)
+         Git : git version 2.25.0
+Ruby lib dir : /System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/lib
+Repositories : trunk - CDN - https://cdn.cocoapods.org/
+​```
+
+### Plugins
+
+​```
+cocoapods-deintegrate : 1.0.4
+cocoapods-plugins     : 1.0.0
+cocoapods-search      : 1.0.0
+cocoapods-stats       : 1.1.0
+cocoapods-trunk       : 1.4.1
+cocoapods-try         : 1.1.0
+​```
+
+### Podfile
+
+​```ruby
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '13.0'
+
+target 'Mongli' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Architecture
+  pod 'ReactorKit'
+
+  # Networking
+  pod 'Alamofire'
+  pod 'Moya'
+  pod 'Moya/RxSwift'
+
+  # Rx
+  pod 'RxSwift'
+  pod 'RxCocoa'
+  pod 'RxTheme'
+  pod 'RxFlow'
+  pod 'RxLocalizer'
+
+  # UI
+  pod 'SnapKit'
+
+  # Logging
+  pod 'CocoaLumberjack/Swift'
+
+  # Database
+  pod 'Realm'
+  pod 'RealmSwift'
+
+  # Misc.
+  pod 'Then'
+  pod 'SwiftLint'
+
+  # SDK
+  pod 'Crashlytics'
+  pod 'Firebase/Core'
+  pod 'Firebase/Analytics'
+
+  target 'MongliTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'MongliUITests' do
+    # Pods for testing
+  end
+
+end
+​```
+
+### Error
+
+​```
+JSON::ParserError - 416: unexpected token at '"include/**/NSError+'
+/System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/lib/ruby/2.6.0/json/common.rb:156:in `parse'
+/System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/lib/ruby/2.6.0/json/common.rb:156:in `parse'
+/Library/Ruby/Gems/2.6.0/gems/cocoapods-core-1.9.1/lib/cocoapods-core/specification/json.rb:61:in `from_json'
+/Library/Ruby/Gems/2.6.0/gems/cocoapods-core-1.9.1/lib/cocoapods-core/specification.rb:742:in `from_string'
+/Library/Ruby/Gems/2.6.0/gems/cocoapods-core-1.9.1/lib/cocoapods-core/specification.rb:716:in `from_file'
+/Library/Ruby/Gems/2.6.0/gems/cocoapods-core-1.9.1/lib/cocoapods-core/source.rb:186:in `specification'
+/Library/Ruby/Gems/2.6.0/gems/cocoapods-1.9.1/lib/cocoapods/resolver/lazy_specification.rb:37:in `specification'
+/System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/lib/ruby/2.6.0/delegate.rb:348:in `block in delegating_block'
+/System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/lib/ruby/2.6.0/delegate.rb:349:in `block in delegating_block'
+/Library/Ruby/Gems/2.6.0/gems/cocoapods-1.9.1/lib/cocoapods/resolver.rb:178:in `dependencies_for'
+/Library/Ruby/Gems/2.6.0/gems/molinillo-0.6.6/lib/molinillo/delegates/specification_provider.rb:18:in `block in dependencies_for'
+/Library/Ruby/Gems/2.6.0/gems/molinillo-0.6.6/lib/molinillo/delegates/specification_provider.rb:70:in `with_no_such_dependency_error_handling'
+/Library/Ruby/Gems/2.6.0/gems/molinillo-0.6.6/lib/molinillo/delegates/specification_provider.rb:17:in `dependencies_for'
+/Library/Ruby/Gems/2.6.0/gems/molinillo-0.6.6/lib/molinillo/resolution.rb:807:in `block in group_possibilities'
+/Library/Ruby/Gems/2.6.0/gems/molinillo-0.6.6/lib/molinillo/resolution.rb:806:in `reverse_each'
+/Library/Ruby/Gems/2.6.0/gems/molinillo-0.6.6/lib/molinillo/resolution.rb:806:in `group_possibilities'
+/Library/Ruby/Gems/2.6.0/gems/molinillo-0.6.6/lib/molinillo/resolution.rb:778:in `possibilities_for_requirement'
+/Library/Ruby/Gems/2.6.0/gems/molinillo-0.6.6/lib/molinillo/resolution.rb:761:in `push_state_for_requirements'
+/Library/Ruby/Gems/2.6.0/gems/molinillo-0.6.6/lib/molinillo/resolution.rb:746:in `require_nested_dependencies_for'
+/Library/Ruby/Gems/2.6.0/gems/molinillo-0.6.6/lib/molinillo/resolution.rb:729:in `activate_new_spec'
+/Library/Ruby/Gems/2.6.0/gems/molinillo-0.6.6/lib/molinillo/resolution.rb:686:in `attempt_to_activate'
+/Library/Ruby/Gems/2.6.0/gems/molinillo-0.6.6/lib/molinillo/resolution.rb:254:in `process_topmost_state'
+/Library/Ruby/Gems/2.6.0/gems/molinillo-0.6.6/lib/molinillo/resolution.rb:182:in `resolve'
+/Library/Ruby/Gems/2.6.0/gems/molinillo-0.6.6/lib/molinillo/resolver.rb:43:in `resolve'
+/Library/Ruby/Gems/2.6.0/gems/cocoapods-1.9.1/lib/cocoapods/resolver.rb:94:in `resolve'
+/Library/Ruby/Gems/2.6.0/gems/cocoapods-1.9.1/lib/cocoapods/installer/analyzer.rb:1065:in `block in resolve_dependencies'
+/Library/Ruby/Gems/2.6.0/gems/cocoapods-1.9.1/lib/cocoapods/user_interface.rb:64:in `section'
+/Library/Ruby/Gems/2.6.0/gems/cocoapods-1.9.1/lib/cocoapods/installer/analyzer.rb:1063:in `resolve_dependencies'
+/Library/Ruby/Gems/2.6.0/gems/cocoapods-1.9.1/lib/cocoapods/installer/analyzer.rb:124:in `analyze'
+/Library/Ruby/Gems/2.6.0/gems/cocoapods-1.9.1/lib/cocoapods/installer.rb:410:in `analyze'
+/Library/Ruby/Gems/2.6.0/gems/cocoapods-1.9.1/lib/cocoapods/installer.rb:235:in `block in resolve_dependencies'
+/Library/Ruby/Gems/2.6.0/gems/cocoapods-1.9.1/lib/cocoapods/user_interface.rb:64:in `section'
+/Library/Ruby/Gems/2.6.0/gems/cocoapods-1.9.1/lib/cocoapods/installer.rb:234:in `resolve_dependencies'
+/Library/Ruby/Gems/2.6.0/gems/cocoapods-1.9.1/lib/cocoapods/installer.rb:156:in `install!'
+/Library/Ruby/Gems/2.6.0/gems/cocoapods-1.9.1/lib/cocoapods/command/install.rb:52:in `run'
+/Library/Ruby/Gems/2.6.0/gems/claide-1.0.3/lib/claide/command.rb:334:in `run'
+/Library/Ruby/Gems/2.6.0/gems/cocoapods-1.9.1/lib/cocoapods/command.rb:52:in `run'
+/Library/Ruby/Gems/2.6.0/gems/cocoapods-1.9.1/bin/pod:55:in `<top (required)>'
+/usr/local/bin/pod:23:in `load'
+/usr/local/bin/pod:23:in `<main>'
+​```
+
+――― TEMPLATE END ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+
+[!] Oh no, an error occurred.
+
+Search for existing GitHub issues similar to yours:
+https://github.com/CocoaPods/CocoaPods/search?q=416%3A+unexpected+token+at+%27%22include%2F%2A%2A%2FNSError%2B%27&type=Issues
+
+If none exists, create a ticket, with the template displayed above, on:
+https://github.com/CocoaPods/CocoaPods/issues/new
+
+Be sure to first read the contributing guide for details on how to properly submit a ticket:
+https://github.com/CocoaPods/CocoaPods/blob/master/CONTRIBUTING.md
+
+Don't forget to anonymize any private data!
+
+Looking for related issues on cocoapods/cocoapods...
+Found no similar issues. To create a new issue, please visit:
+https://github.com/cocoapods/cocoapods/issues/new
+
+[!] Automatically assigning platform `iOS` with version `13.2` on target `Mongli` because no platform was specified. Please specify a platform for this target in your Podfile. See `https://guides.cocoapods.org/syntax/podfile.html#platform`.
+```
+
+
+
+### 배경
+
+불과 5분전에도 멀쩡히 작동하던 `pod install`이 에러가,,,
+
+
+
+### 해결
+
+여러가지 방법으로 1시간을 시도했지만 명령어하나로 해결완료!
+
+```
+rm -rf ~/.cocoapods/repos/trunk/
+```
+
+
+
+### 링크
+
+[https://github.com/CocoaPods/CocoaPods/issues/9260](https://github.com/CocoaPods/CocoaPods/issues/9260)
+

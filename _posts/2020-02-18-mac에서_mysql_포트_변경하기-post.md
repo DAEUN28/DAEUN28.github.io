@@ -1,0 +1,85 @@
+---
+title: "mac에서 mysql 포트 변경하기"
+tags:
+  - 터미널
+  - mysql
+categories: "삽질사전"
+---
+
+
+
+안녕하세요😃 
+
+저는 요즘 Kitura를 공부하고 있어요! 처음 서버를 짜보니까 새롭고 재밌어요. 이젠 Kitura에 조금 익숙해져서 DB를 연동해보려고 했습니다!! 그.런.데,,, 사용해본 DBMS가 mysql밖에 없었어요. 그래서 [SwiftKueryMySQL](https://github.com/IBM-Swift/SwiftKueryMySQL) 을 사용해 DB연동을 하려고 README를 열심히 읽어보고 있었는데
+
+`port number for the TCP/IP connection if connecting to server on a non-standard port (i.e. not 3306)`
+
+IBM이 기본포트인 3306을 쓰지 말라네요,,,,, 그래서 먼저 포트번호를 바꾸려고,, 구글링해서 나온 결과를 모두 따라해봤습니다!! 근데 mac에서 포트 변경하는 방법이 너무 다양하더라구요ㅜㅜ 해결방법은 다양하지만 겸사겸사 mac을 초기화하고 싶은 분들은 제 방법을 사용하셔도 좋을 것 같아요!
+
+제 상황은 이랬습니다.. 터미널에서는 mysql server가 켜지지도 않고, my.cnf 파일에서 포트를 변경하면 workbench에서 오류가 났어요.  아무래도 homebrew로 설치하고, dmg 파일로 설치하고, 삭제하고 설치하는걸 계속 반복했더니 파일이 꼬인 것 같았습니다!
+
+### Mac 포맷하기
+
+포맷방법은 간단합니다. 맥을 끄고, 재부팅할때 애플로고가 뜨잖아요?? 그때 command+R을 오래 눌러주시면 됩니다!! OS를 설치할 디스크를 선택하라고 할거에요. 물론 포맷 전에 데이터를 🔥백업🔥해놓으셔야 합니다
+
+
+
+### mysql 설치하기
+
+저는 homebrew로 설치했어요! 설치방법은 [링크](https://whitepaek.tistory.com/16)를 참고해주세요☺️
+
+
+
+### my.cnf 파일 수정하기
+
+```
+mysql --verbose --help | grep my.cnf
+```
+
+위 명령어를 사용해서 my.cnf 파일을 찾아볼 수 있어요! 결과가 order of prefrence로 나온다면 파일들의 순서가 나오는데 아마 `/etc/my.cnf /etc/mysql/my.cnf /usr/local/etc/my.cnf ~/.my.cnf` 순서로 나올거에요! 이 순서대로 my.cnf파일이 참조된다고 해요. 따라서 내가 갖고 있는 파일 중에 가장 앞에 있는 파일을 수정해야겠죠?? 제 경우에서는 세번째 my.cnf파일밖에 없었어요. 그래서 선택지가 없었죠.. 아마 포맷후 설치하신 분들은 저와 같은 상황일 것 같아요. 저는 vi에디터보다 Finder에서 텍스트편집기로 파일을 수정하기 때문에 다음 명령어를 통해 폴더를 열어줬습니다🙌
+
+```
+open /usr/local/etc
+```
+
+이 폴더를 열면 나오는 my.cnf파일은 아마 
+
+```
+# Default Homebrew MySQL server config
+[mysqld]
+# Only allow connections from localhost
+bind-address = 127.0.0.1
+mysqlx-bind-address = 127.0.0.1
+```
+
+이 형태일거에요. 이 파일 가장 밑에 
+
+```
+port = [포트번호]
+```
+
+이렇게 추가해주시고 파일을 저장해주세요! 
+
+
+
+### 포트번호 확인
+
+포트 번호를 변경했으니 이제 변경이 잘되었는지 확인해야겠죠? 확인 전에는 꼭 mysql서버를 켜주세요.
+
+```
+sudo lsof -P -i :[포트번호]
+```
+
+위 명령어에 [포트번호]부분을 변경한 포트번호로 입력하고 실행해주세요.
+
+저는 포트번호를 5252로 변경했는데 제 실행결과는 다음과 같았습니다! 
+
+![https://user-images.githubusercontent.com/45457678/74695306-e0b6a800-5236-11ea-9ceb-515200cf506c.png](https://user-images.githubusercontent.com/45457678/74695306-e0b6a800-5236-11ea-9ceb-515200cf506c.png)
+
+
+
+## 링크
+
+[https://secondmemory.kr/645](https://secondmemory.kr/645)
+
+[https://harrythegreat.tistory.com/entry/mac-brew에서-설치한-mysql-mycnf가-안먹을때](https://harrythegreat.tistory.com/entry/mac-brew에서-설치한-mysql-mycnf가-안먹을때)
