@@ -16,11 +16,11 @@ minimal_mistakes_skin    : "default" # "air", "aqua", "contrast", "dark", "dirt"
 
 # Site Settings
 locale                   : "ko-KR"
-title                    : "DAEUN28"
+title                    : "아주 작은 개발자의 블로그"
 title_separator          : "-"
 subtitle                 : "Swift, iOS, FUN😃" # site tagline that appears below site title in masthead
 name                     : "DAEUN28"
-description              : "아주 놀라운 작은 개발자의 블로그"
+description              : "아주 작은 개발자의 블로그"
 url                      : "https://DAEUN28.github.io"
 baseurl                  : # the subpath of your site, e.g. ""
 repository               : "DAEUN28/DAEUN28.github.io"
