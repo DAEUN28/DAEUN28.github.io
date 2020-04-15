@@ -108,12 +108,12 @@ body {
   p,
   li,
   dl {
+    line-height: 2;
     font-size: 1em;
   }
 
   /* paragraph indents */
   p {
-    line-height: 2;
     margin: 0 0 $indent-var;
 
     /* sibling indentation*/
