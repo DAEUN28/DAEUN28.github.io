@@ -29,8 +29,6 @@ SF Symbols는 **iOS 13, watchOS 6, tvOS 13**부터 앱에서 사용 할 수 있�
 
 <script src="https://gist.github.com/DAEUN28/395da96f896d074ede8751e12e83036c.js"></script>
 
-
-
 SymbolConfiguration을 생성해 configuration에 넣어주시면 pointSize, weight, scale등을 커스텀하실 수 있어요.
 
 
@@ -38,7 +36,5 @@ SymbolConfiguration을 생성해 configuration에 넣어주시면 pointSize, wei
 만약 SF Symbols를 자주 이용한다!!라면 아래와 같이 사용하시면 편하겠죠???
 
 <script src="https://gist.github.com/DAEUN28/7e0ba99a3a4e873cd2a52097b594d26e.js"></script>
-
-
 
 오늘도 도움이 되셨다면 좋겠습니다! 잘못된 내용이 있다면 댓글로 알려주세요🤗
