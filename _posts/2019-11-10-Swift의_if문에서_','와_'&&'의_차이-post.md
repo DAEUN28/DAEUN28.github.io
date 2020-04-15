@@ -3,7 +3,7 @@ title: "Swift의 if문에서 ','와 '&&'의 차이"
 date: 2019-11-10
 tags:
   - Swift
-categories: "탐구일기"
+categories: "호기심이_쏘아올린_작은공"
 ---
 
 
