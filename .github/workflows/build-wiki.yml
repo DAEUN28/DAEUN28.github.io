@@ -1,0 +1,114 @@
+name: Build wiki
+
+on:
+  push:
+    branches: [wiki]
+    paths:
+      - '_editor/content/**'
+      - '_editor/config/**'
+      - '_editor/wikiwikiwiki/**'
+      - '_editor/themes/**'
+      - '_editor/tools/**'
+      - '.github/workflows/build-wiki.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: build-wiki
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout wiki branch
+        uses: actions/checkout@v4
+        with:
+          ref: wiki
+          fetch-depth: 0
+
+      - name: Configure git
+        run: |
+          git config user.name "wiki-bot"
+          git config user.email "wiki-bot@users.noreply.github.com"
+
+      - name: Merge master into wiki
+        run: |
+          git fetch origin master
+          # Fast-forward or merge. Keeps blog updates from master visible here
+          # so the final push to master is a clean fast-forward.
+          git merge origin/master --no-edit -m "wiki: pull master updates" || {
+            echo "merge conflict detected; aborting"
+            git merge --abort || true
+            exit 1
+          }
+
+      - name: Setup PHP 8.5
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+
+      - name: Prepare engine runtime dirs
+        working-directory: _editor
+        run: |
+          mkdir -p users cache history cache/sessions
+          php tools/ci-seed-user.php
+
+      - name: Start engine
+        working-directory: _editor
+        run: |
+          php -S 127.0.0.1:3333 -t . tools/ci-router.php >/tmp/engine.log 2>&1 &
+          echo $! > /tmp/engine.pid
+          # Wait for the engine to answer /api/all.
+          for i in $(seq 1 30); do
+            if curl -sf http://127.0.0.1:3333/api/all > /dev/null; then
+              echo "engine ready"
+              break
+            fi
+            sleep 1
+          done
+          curl -sf http://127.0.0.1:3333/api/all || {
+            echo "engine failed to start"
+            cat /tmp/engine.log
+            exit 1
+          }
+
+      - name: Export static /wiki/
+        env:
+          WIKI_EXPORT_DEST: ${{ github.workspace }}/_editor/public
+        run: |
+          python3 _editor/tools/export.py
+
+      - name: Stop engine
+        if: always()
+        run: |
+          [ -f /tmp/engine.pid ] && kill "$(cat /tmp/engine.pid)" || true
+
+      - name: Sync /wiki at repo root
+        run: |
+          rsync -a --delete _editor/public/wiki/ wiki/
+
+      - name: Commit wiki changes on this branch
+        id: commit
+        run: |
+          git add wiki/
+          if git diff --cached --quiet; then
+            echo "no_changes=true" >> "$GITHUB_OUTPUT"
+            echo "no wiki/ changes"
+          else
+            git commit -m "wiki build: $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+            echo "no_changes=false" >> "$GITHUB_OUTPUT"
+          fi
+          git push origin wiki
+
+      - name: Fast-forward master
+        if: steps.commit.outputs.no_changes == 'false'
+        run: |
+          git fetch origin master
+          git checkout master
+          # wiki is based on master (we merged master into it above), so this
+          # is a fast-forward unless someone pushed to master meanwhile.
+          git merge --ff-only wiki || git merge wiki --no-edit -m "merge wiki build"
+          git push origin master

@@ -1,0 +1,6 @@
+# Engine runtime state. Never commit.
+/users/
+/cache/
+/history/
+/.lock
+/content/.gitkeep
