@@ -5,6 +5,7 @@ on:
     branches: [wiki]
     paths:
       - '_editor/content/**'
+      - '_editor/user-images/**'
       - '_editor/config/**'
       - '_editor/wikiwikiwiki/**'
       - '_editor/themes/**'

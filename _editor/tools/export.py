@@ -102,6 +102,11 @@ while queue:
 assets=stage/'wiki/wikiwikiwiki/assets'
 engine_assets=ROOT/'editor/wikiwikiwiki/assets' if (ROOT/'editor/wikiwikiwiki/assets').is_dir() else ROOT/'wikiwikiwiki/assets'
 shutil.copytree(engine_assets,assets)
+# User-uploaded images live in _editor/user-images/ (committed by the Vercel
+# editor via GitHub Contents API) and get served at /wiki/images/<file>.
+user_images=ROOT/'user-images'
+if user_images.is_dir():
+    shutil.copytree(user_images, stage/'wiki/images')
 (stage/'wiki/data.json').write_text(json.dumps(records,ensure_ascii=False))
 for p in records:
     target=stage/'wiki/sources'/(p['title']+'.txt')
