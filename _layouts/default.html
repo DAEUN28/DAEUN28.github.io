@@ -1,42 +1,39 @@
----
----
-
-<!doctype html>
-<!--
-  Minimal Mistakes Jekyll Theme 4.17.2 by Michael Rose
-  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
-  Free for personal and commercial use under the MIT license
-  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
--->
-<html lang="{{ site.locale | slice: 0,2 | default: "en" }}" class="no-js">
-  <head>
-    {% include head.html %}
-    {% include head/custom.html %}
-  </head>
-
-  <body class="layout--{{ page.layout | default: layout.layout }}{% if page.classes or layout.classes %}{{ page.classes | default: layout.classes | join: ' ' | prepend: ' ' }}{% endif %}">
-    {% include_cached skip-links.html %}
-    {% include_cached browser-upgrade.html %}
-    {% include_cached masthead.html %}
-
-    <div class="initial-content">
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.locale | default: 'ko' }}">
+<head>{% include head.html %}</head>
+<body id="{{ page.layout | default: 'default' }}">
+  <a class="skip" href="#main">본문으로 건너뛰기</a>
+  <div class="document">
+    <header class="header" aria-label="사이트 헤더">
+      <h1 class="header-title"><a href="{{ '/' | relative_url }}">{{ site.title }}</a></h1>
+      <nav class="header-nav" aria-label="주 메뉴">
+        <a href="{{ '/categories/' | relative_url }}" aria-label="카테고리" title="카테고리">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M10 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V8C22 6.9 21.1 6 20 6H12L10 4Z"/></svg>
+        </a>
+        <details class="dropdown">
+          <summary aria-label="메뉴 열기">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M5 10C3.9 10 3 10.9 3 12C3 13.1 3.9 14 5 14C6.1 14 7 13.1 7 12C7 10.9 6.1 10 5 10ZM19 10C17.9 10 17 10.9 17 12C17 13.1 17.9 14 19 14C20.1 14 21 13.1 21 12C21 10.9 20.1 10 19 10ZM12 10C10.9 10 10 10.9 10 12C10 13.1 10.9 14 12 14C13.1 14 14 13.1 14 12C14 10.9 13.1 10 12 10Z"/></svg>
+          </summary>
+          <menu class="dropdown-content">
+            <li><a href="{{ '/' | relative_url }}">홈</a></li>
+            <li><a href="{{ '/categories/' | relative_url }}">카테고리</a></li>
+            <li><a href="{{ '/tags/' | relative_url }}">태그</a></li>
+            <li><a href="{{ '/wiki/' | relative_url }}">위키 ↗</a></li>
+          </menu>
+        </details>
+      </nav>
+    </header>
+    <main class="main" id="main" aria-label="주요 내용">
       {{ content }}
-    </div>
-
-    {% if site.search == true %}
-      <div class="search-content">
-        {% include_cached search/search_form.html %}
+    </main>
+    <footer class="footer" aria-label="사이트 푸터">
+      <div class="content">
+        <p>
+          © {{ site.time | date: '%Y' }} {{ site.author.name | default: site.name }}
+          · <a href="https://github.com/{{ site.repository }}" target="_blank" rel="noopener noreferrer">소스</a>
+        </p>
       </div>
-    {% endif %}
-
-    <div id="footer" class="page__footer">
-      <footer>
-        {% include footer/custom.html %}
-        {% include_cached footer.html %}
-      </footer>
-    </div>
-
-    {% include scripts.html %}
-
-  </body>
+    </footer>
+  </div>
+</body>
 </html>
