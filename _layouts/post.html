@@ -1,0 +1,53 @@
+---
+layout: default
+---
+<article class="section">
+  <header class="section-header">
+    <h1 class="title" data-label="{{ page.date | date: '%Y-%m-%d' }}">
+      <span>{{ page.title }}</span>
+    </h1>
+    <div class="post-meta">
+      {%- if page.categories.size > 0 -%}
+        {% for cat in page.categories %}<a class="tag" href="{{ '/categories/#' | append: cat | slugify | relative_url }}">{{ cat }}</a>{% unless forloop.last %} {% endunless %}{% endfor %}
+      {%- endif -%}
+      {%- if page.tags.size > 0 %}
+        {% if page.categories.size > 0 %}<span class="dot">·</span>{% endif %}
+        {% for tag in page.tags %}<a class="tag" href="{{ '/tags/#' | append: tag | slugify | relative_url }}">#{{ tag }}</a>{% unless forloop.last %} {% endunless %}{% endfor %}
+      {%- endif -%}
+    </div>
+  </header>
+  <div class="section-main">
+    <div class="content post-content">
+      {{ content }}
+    </div>
+
+    {%- assign posts = site.posts -%}
+    {%- for p in posts -%}
+      {%- if p.url == page.url -%}
+        {%- assign prev = forloop.index0 | minus: 1 -%}
+        {%- assign next = forloop.index0 | plus: 1 -%}
+        {%- if prev >= 0 -%}{%- assign prev_post = posts[prev] -%}{%- endif -%}
+        {%- if next < posts.size -%}{%- assign next_post = posts[next] -%}{%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- if prev_post or next_post -%}
+      <nav class="post-nav" aria-label="이전/다음 글">
+        <div>
+          {%- if prev_post -%}
+            <small>다음 글</small>
+            <a href="{{ prev_post.url | relative_url }}">← {{ prev_post.title }}</a>
+          {%- endif -%}
+        </div>
+        <div>
+          {%- if next_post -%}
+            <small>이전 글</small>
+            <a href="{{ next_post.url | relative_url }}">{{ next_post.title }} →</a>
+          {%- endif -%}
+        </div>
+      </nav>
+    {%- endif -%}
+
+    {% include comments.html %}
+  </div>
+</article>

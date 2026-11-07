@@ -1,0 +1,8 @@
+source "https://rubygems.org"
+gem "jekyll", "~> 4.2.0"
+gem "jekyll-paginate"
+gem "jekyll-sitemap"
+gem "webrick"
+gem "ffi", "~> 1.15.0"
+gem "nokogiri", "~> 1.15.0"
+gem "rouge", "~> 3.26"
