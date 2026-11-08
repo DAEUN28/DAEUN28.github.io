@@ -38,12 +38,9 @@ jobs:
       - name: Merge master into wiki
         run: |
           git fetch origin master
-          # Each successful run ends with wiki force-reset to master, so the
-          # typical case is a no-op merge. If a direct push to master lands
-          # in between, -X ours keeps wiki's edited sources authoritative
-          # when the file paths collide (squash-to-master creates add/add
-          # conflicts without this).
-          git merge origin/master --no-edit -X ours -m "wiki: pull master updates" || {
+          # Keeps blog commits that land directly on master visible here.
+          # Fast-forward when nothing new is on master.
+          git merge origin/master --no-edit -m "wiki: pull master updates" || {
             echo "merge conflict detected; aborting"
             git merge --abort || true
             exit 1
@@ -107,26 +104,11 @@ jobs:
           fi
           git push origin wiki
 
-      - name: Squash into master
+      - name: Fast-forward master to wiki
         if: steps.commit.outputs.no_changes == 'false'
         run: |
-          git fetch origin master
-          git checkout master
-          # Fold the editor's "edit via wiki-editor:" + the merge-master + the
-          # wiki build commit on the wiki branch into a single tidy commit on
-          # master so `git log master` stays readable.
-          git merge --squash wiki
-          # Prefer the editor's own message when we can find it; otherwise
-          # stamp a generic one.
-          MSG=$(git log wiki -40 --format='%s' | grep -m1 -E '^(edit|upload) via wiki-editor:' | sed -E 's/^edit via wiki-editor: /content: /; s/^upload via wiki-editor: /image: /') || true
-          git commit -m "${MSG:-content update}" || echo "nothing to commit"
-          git push origin master
-
-      - name: Reset wiki to match master
-        if: steps.commit.outputs.no_changes == 'false'
-        run: |
-          # Point wiki at master's new tip so the next run merges nothing
-          # and no add/add conflicts build up from the squash. Works because
-          # wiki never holds content master doesn't — the squash just folded
-          # the full delta in.
-          git push origin master:wiki --force-with-lease=wiki
+          # wiki is always a descendant of master here (we merged master in
+          # at the start of the job), so this is a plain fast-forward.
+          # Duplicate-ish log entries ("edit via wiki-editor: X", "wiki build:
+          # …") land on master as-is and that's fine.
+          git push origin wiki:master
