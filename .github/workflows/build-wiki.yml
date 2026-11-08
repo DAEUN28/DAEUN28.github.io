@@ -38,9 +38,12 @@ jobs:
       - name: Merge master into wiki
         run: |
           git fetch origin master
-          # Fast-forward or merge. Keeps blog updates from master visible here
-          # so the final push to master is a clean fast-forward.
-          git merge origin/master --no-edit -m "wiki: pull master updates" || {
+          # Each successful run ends with wiki force-reset to master, so the
+          # typical case is a no-op merge. If a direct push to master lands
+          # in between, -X ours keeps wiki's edited sources authoritative
+          # when the file paths collide (squash-to-master creates add/add
+          # conflicts without this).
+          git merge origin/master --no-edit -X ours -m "wiki: pull master updates" || {
             echo "merge conflict detected; aborting"
             git merge --abort || true
             exit 1
@@ -118,3 +121,12 @@ jobs:
           MSG=$(git log wiki -40 --format='%s' | grep -m1 -E '^(edit|upload) via wiki-editor:' | sed -E 's/^edit via wiki-editor: /content: /; s/^upload via wiki-editor: /image: /') || true
           git commit -m "${MSG:-content update}" || echo "nothing to commit"
           git push origin master
+
+      - name: Reset wiki to match master
+        if: steps.commit.outputs.no_changes == 'false'
+        run: |
+          # Point wiki at master's new tip so the next run merges nothing
+          # and no add/add conflicts build up from the squash. Works because
+          # wiki never holds content master doesn't — the squash just folded
+          # the full delta in.
+          git push origin master:wiki --force-with-lease=wiki
