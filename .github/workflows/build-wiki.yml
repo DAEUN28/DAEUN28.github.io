@@ -104,12 +104,17 @@ jobs:
           fi
           git push origin wiki
 
-      - name: Fast-forward master
+      - name: Squash into master
         if: steps.commit.outputs.no_changes == 'false'
         run: |
           git fetch origin master
           git checkout master
-          # wiki is based on master (we merged master into it above), so this
-          # is a fast-forward unless someone pushed to master meanwhile.
-          git merge --ff-only wiki || git merge wiki --no-edit -m "merge wiki build"
+          # Fold the editor's "edit via wiki-editor:" + the merge-master + the
+          # wiki build commit on the wiki branch into a single tidy commit on
+          # master so `git log master` stays readable.
+          git merge --squash wiki
+          # Prefer the editor's own message when we can find it; otherwise
+          # stamp a generic one.
+          MSG=$(git log wiki -40 --format='%s' | grep -m1 -E '^(edit|upload) via wiki-editor:' | sed -E 's/^edit via wiki-editor: /content: /; s/^upload via wiki-editor: /image: /') || true
+          git commit -m "${MSG:-content update}" || echo "nothing to commit"
           git push origin master
